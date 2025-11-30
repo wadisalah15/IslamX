@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رحلة إلى الجنة - لعبة إسلامية تعليمية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1a5f45;
+      --secondary-color: #2d8a6b;
+      --accent-color: #f0a830;
+      --light-color: #f8f9fa;
+      --dark-color: #333;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e0f2e9);
+      color: #2c3e50;
+      line-height: 1.8;
+    }
+  
+    header {
+      background: url('https://www.alsharqtoday.com/wp-content/uploads/2021/02/%D8%A7%D9%84%D8%A7%D8%B3%D9%84%D8%A7%D9%85.jpg') center/cover no-repeat;
+      height: 65vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+      position: relative;
+    }
+  
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+  
+    header h1 {
+      font-size: 3.5em;
+      z-index: 2;
+      position: relative;
+      padding: 0 1em;
+    }
+  
+    .container {
+      padding: 3em 1.5em;
+      max-width: 1000px;
+      margin: auto;
+    }
+  
+    .game-section {
+      background: white;
+      margin-bottom: 2em;
+      padding: 2em;
+      border-radius: 20px;
+      border: 1px solid #d1e7dd;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+  
+    .game-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+  
+    .game-section h2 {
+      color: var(--primary-color);
+      font-size: 1.8em;
+      margin-bottom: 0.5em;
+      position: relative;
+      text-align: center;
+    }
+  
+    .game-section h2::before {
+      content: " ☪";
+      position: absolute;
+      left: 1.5em;
+      font-size: 1em;
+    }
+  
+    .stats-bar {
+      display: flex;
+      justify-content: space-around;
+      background-color: #e0f2e9;
+      padding: 1em;
+      font-weight: bold;
+      margin-bottom: 1.5em;
+      border-radius: 10px;
+      border: 1px solid var(--secondary-color);
+      flex-wrap: wrap;
+    }
+  
+    .stats-bar div {
+      margin: 5px;
+    }
+  
+    .progress-container {
+      width: 100%;
+      height: 30px;
+      background-color: #f1f1f1;
+      border-radius: 15px;
+      margin: 1em 0;
+      overflow: hidden;
+    }
+  
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+      border-radius: 15px;
+      transition: width 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+  
+    .situation {
+      font-size: 1.3em;
+      margin-bottom: 1em;
+      color: var(--primary-color);
+      text-align: right;
+      padding: 1em;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      border-right: 5px solid var(--accent-color);
+    }
+  
+    .options button {
+      display: block;
+      width: 100%;
+      padding: 1em;
+      margin: 0.5em 0;
+      font-size: 1.1em;
+      background-color: #f8f9fa;
+      border: 1px solid #d1e7dd;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: right;
+    }
+  
+    .options button:hover {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+  
+    .options button.disabled {
+      background-color: #d3d3d3;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+  
+    .feedback {
+      margin-top: 1.5em;
+      font-weight: bold;
+      font-size: 1.1em;
+      text-align: center;
+      padding: 1em;
+      border-radius: 10px;
+    }
+  
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+      border-right: 5px solid #28a745;
+    }
+  
+    .wrong {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-right: 5px solid #dc3545;
+    }
+  
+    .help-options {
+      text-align: center;
+      margin-top: 2em;
+    }
+  
+    .help-options button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  
+    .help-options button:hover {
+      background-color: #e69500;
+    }
+  
+    .help-options button.disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  
+    .encouragement-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+      z-index: 1000;
+    }
+  
+    .reward-card {
+      background: white;
+      margin: 1em 0;
+      padding: 1.5em;
+      border-radius: 15px;
+      border: 1px solid var(--accent-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+  
+    .reward-card h3 {
+      color: var(--primary-color);
+      margin-top: 0;
+    }
+  
+    .reward-card p {
+      color: #555;
+    }
+  
+    footer {
+      text-align: center;
+      padding: 1.5em;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.1em;
+      margin-top: 2em;
+    }
+  
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 999;
+      font-size: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+  
+    #backToTop:hover {
+      background-color: #0d3b2a;
+    }
+    
+    nav {
+      background-color: var(--secondary-color);
+      padding: 0.8em 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  
+    nav li {
+      margin: 0;
+      text-align: center;
+    }
+  
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      padding: 0.5em 1em;
+      display: inline-block;
+      text-align: center;
+    }
+  
+    nav a:hover {
+      color: var(--accent-color);
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+  
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+  
+      .game-section {
+        padding: 1.2em;
+      }
+  
+      .game-section h2 {
+        font-size: 1.4em;
+      }
+  
+      .stats-bar {
+        flex-direction: column;
+        gap: 10px;
+      }
+  
+      nav ul {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .options button {
+        padding: 0.8em;
+        font-size: 1em;
+      }
+
+      .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .school-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 5px;
+      color: var(--light-color);
+    }
+
+    .students {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .student {
+      color: rgba(255,255,255,0.9);
+    }
+
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="الصفحة الرئيسية.html">الصفحة الرئيسية</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>رحلة إلى الجنة</h1>
+  </header>
+
+  <div class="container">
+    <div class="game-section">
+      <h2>تحدي القرارات الإسلامية</h2>
+      
+      <div class="stats-bar">
+        <div>📊 المرحلة: <span id="currentStage">1</span>/<span id="totalStages">0</span></div>
+        <div>🕌 الحسنات: <span id="goodDeeds">0</span></div>
+        <div>💔 السيئات: <span id="badDeeds">0</span></div>
+        <div>⭐ النقاط: <span id="points">0</span></div>
+        <div>🏆 الجوائز: <span id="rewards">0</span></div>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar" style="width: 0%">0%</div>
+      </div>
+
+      <div class="situation" id="situation">جارٍ تحميل الموقف...</div>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+      
+      <div id="rewardContainer"></div>
+
+      <div class="help-options">
+        <button id="skipSituationBtn">تخطي الموقف</button>
+        <button id="islamicAdviceBtn">نصيحة إسلامية</button>
+        <button id="hintBtn">إظهار تلميح</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="encouragementMessage" class="encouragement-message"></div>
+
+  <button id="backToTop" title="الرجوع للأعلى">↑</button>
+
+  
+
+  <script>
+    const situations = [
+      {
+        id: 1,
+        stage: "في المدرسة",
+        situation: "سمعت زميلك يغتاب طالبًا آخر. ماذا تفعل؟",
+        options: [
+          { text: "تنضم إليه في الغيبة وتشارك الحديث", points: -10, feedback: "الغيبة من الكبائر التي حذر منها الإسلام. قال النبي ﷺ: 'الغيبة ذكرك أخاك بما يكره'" },
+          { text: "تصمت ولا تشارك ولكنك تستمع", points: -5, feedback: "الاستماع للغيبة كالمشاركة فيها. الأفضل أن تنصح أو تغير الموضوع" },
+          { text: "تنصحه بلطف وتذكره بحرمة الغيبة", points: 15, feedback: "أحسنت! النصيحة بأدب من صفات المؤمن. قال ﷺ: 'الدين النصيحة'" },
+          { text: "تترك المكان وتذكر الله", points: 10, feedback: "حسنًا فعلت. ترك مجالس الغيبة من علامات الإيمان" }
+        ],
+        hint: "قال الله تعالى: 'ولا يغتب بعضكم بعضًا أيحب أحدكم أن يأكل لحم أخيه ميتًا' (الحجرات: 12)"
+      },
+      {
+        id: 2,
+        stage: "في السوق",
+        situation: "وجدت محفظة تحتوي على مال كثير في السوق. ماذا تفعل؟",
+        options: [
+          { text: "تأخذ المال لنفسك وتترك المحفظة", points: -20, feedback: "أخذ مال الغير بدون حق من الكبائر. قال ﷺ: 'لا يأخذن أحدكم متاع أخيه لاعبًا ولا جادًا'" },
+          { text: "تسلمها لإدارة السوق أو الشرطة", points: 20, feedback: "أحسنت! هذا من الأمانة التي أمرنا بها الإسلام" },
+          { text: "تبحث عن صاحبها بنفسك", points: 15, feedback: "عمل رائع! البحث عن صاحب المفقودات من الأخلاق الحميدة" },
+          { text: "تتركها مكانها ولا تهتم", points: -5, feedback: "الأولى أن تحاول إرجاعها لصاحبها فهذا من التعاون على البر" }
+        ],
+        hint: "قال ﷺ: 'أد الأمانة إلى من ائتمنك، ولا تخن من خانك'"
+      },
+      {
+        id: 3,
+        stage: "مع الأصدقاء",
+        situation: "طلب منك أصدقاؤك الخروج في وقت الصلاة. ماذا تفعل؟",
+        options: [
+          { text: "تؤجل الصلاة وتخرج معهم", points: -15, feedback: "إهمال الصلاة من كبائر الذنوب. قال تعالى: 'فويل للمصلين الذين هم عن صلاتهم ساهون'" },
+          { text: "تخرج معهم وتصلي في أي مكان", points: 10, feedback: "حسنًا، لكن الأفضل أن لا تؤجل الصلاة عن وقتها" },
+          { text: "تطلب منهم الانتظار حتى تصلي ثم تخرج", points: 20, feedback: "أحسنت! تقديم الطاعة على المتعة من علامات الإيمان" },
+          { text: "تعتذر وتصلي في المسجد", points: 15, feedback: "جيد جدًا، صلاة الجماعة لها أجر عظيم" }
+        ],
+        hint: "قال ﷺ: 'بين الرجل وبين الكفر ترك الصلاة'"
+      },
+      {
+        id: 4,
+        stage: "في المسجد",
+        situation: "دخلت المسجد ورأيت أشخاصًا يتحدثون بصوت عالٍ. ماذا تفعل؟",
+        options: [
+          { text: "تنضم إليهم وتشارك في الحديث", points: -10, feedback: "رفع الصوت في المسجد من سوء الأدب. المساجد للذكر والصلاة" },
+          { text: "تطلب منهم تخفيض أصواتهم بلطف", points: 15, feedback: "أحسنت! النصيحة اللطيفة من حق المسجد عليك" },
+          { text: "تتجاهلهم وتجلس بعيدًا", points: 5, feedback: "جيد، لكن الأفضل أن تنصحهم بأدب" },
+          { text: "تبدأ بقراءة القرآن بصوت مسموع", points: 10, feedback: "فكرة جيدة، فربما يتوقفون عن الكلام" }
+        ],
+        hint: "قال ﷺ: 'إذا رأيتم من يبيع أو يبتاع في المسجد فقولوا: لا أربح الله تجارتك'"
+      },
+      {
+        id: 5,
+        stage: "عبر الإنترنت",
+        situation: "قرأت منشورًا يحتوي على معلومات خاطئة عن الإسلام. ماذا تفعل؟",
+        options: [
+          { text: "تشاركه مع الآخرين للسخرية منه", points: -15, feedback: "نشر المعلومات الخاطئة حتى للسخرية يزيد من انتشارها" },
+          { text: "تتجاهله ولا تهتم", points: -5, feedback: "الأولى أن تصحح المعلومة إن كنت تعرف الحقيقة" },
+          { text: "تعلق بتصحيح المعلومة بأدب", points: 20, feedback: "أحسنت! الدعوة بالحكمة والموعظة الحسنة من واجبات المسلم" },
+          { text: "تبلغ عن المنشور لإداره الموقع", points: 10, feedback: "عمل جيد، خاصة إذا لم تكن تعرف التصحيح" }
+        ],
+        hint: "قال تعالى: 'ادع إلى سبيل ربك بالحكمة والموعظة الحسنة'"
+      },
+      {
+        id: 6,
+        stage: "مع العائلة",
+        situation: "طلب منك والدك أمرًا وأنت مشغول. ماذا تفعل؟",
+        options: [
+          { text: "تتجاهل طلبه وتواصل ما تفعله", points: -20, feedback: "بر الوالدين من أعظم الطاعات. قال تعالى: 'وقضى ربك ألا تعبدوا إلا إياه وبالوالدين إحسانًا'" },
+          { text: "تنفذ طلبه ولكن بتململ", points: 5, feedback: "جيد أنك نفذت الطلب، لكن الأفضل أن تكون سريعًا وبشوشًا" },
+          { text: "تنفذ طلبه فورًا بوجه طلق", points: 25, feedback: "أحسنت! هذا من بر الوالدين الذي أمرنا به الإسلام" },
+          { text: "تؤجل طلبه حتى تنتهي من عملك", points: 10, feedback: "لا بأس إذا كان الطلب يحتمل التأجيل، ولكن الأفضل المبادرة" }
+        ],
+        hint: "قال ﷺ: 'رضا الرب في رضا الوالدين، وسخط الرب في سخط الوالدين'"
+      },
+      {
+        id: 7,
+        stage: "أثناء الصيام",
+        situation: "في يوم صيام، عرض عليك صديقك أن تأكلا معًا في المطعم. ماذا تفعل؟",
+        options: [
+          { text: "توافق وتفطر معه", points: -30, feedback: "الفطر في نهار رمضان بدون عذر من الكبائر. يجب القضاء والكفارة" },
+          { text: "تعتذر وتخبره أنك صائم", points: 15, feedback: "أحسنت! الصيام فريضة ولا يجوز الفطر إلا لعذر شرعي" },
+          { text: "تذهب معه ولكن لا تأكل", points: 10, feedback: "جيد أنك لم تفطر، لكن الأفضل تجنب مواطن الشبهات" },
+          { text: "تذكره بأنه صائم وتدعوه للإفطار معك بعد المغرب", points: 20, feedback: "تصرف رائع! جمعت بين الصيام والدعوة إلى الخير" }
+        ],
+        hint: "قال ﷺ: 'من أفطر يومًا من رمضان من غير رخصة ولا مرض لم يقضه صوم الدهر كله'"
+      },
+      {
+        id: 8,
+        stage: "في العمل",
+        situation: "طلب منك مديرك أن تكذب على الزبائن لزيادة المبيعات. ماذا تفعل؟",
+        options: [
+          { text: "توافق وتكذب لتحقيق المبيعات", points: -25, feedback: "الكذب من صفات المنافقين. قال ﷺ: 'آية المنافق ثلاث: إذا حدث كذب، وإذا وعد أخلف، وإذا اؤتمن خان'" },
+          { text: "تعتذر وتشرح له حرمة الكذب", points: 30, feedback: "أحسنت! الرفض بأدب وبيان الحكم الشرعي من علامات القوة في الإيمان" },
+          { text: "تخبر الزبائن نصف الحقيقة فقط", points: -10, feedback: "هذا من التدليس المحرم في الإسلام" },
+          { text: "تستقيل من العمل", points: 15, feedback: "حسنًا إذا لم تجد طريقة أخرى، لكن حاول النصح أولاً" }
+        ],
+        hint: "قال ﷺ: 'إن الصدق يهدي إلى البر، وإن البر يهدي إلى الجنة'"
+      },
+      {
+        id: 9,
+        stage: "في المواصلات",
+        situation: "وجدت مقعدًا شاغرًا في الحافلة المزدحمة. ماذا تفعل؟",
+        options: [
+          { text: "تسرع لتحصل على المقعد لنفسك", points: -10, feedback: "الأولى أن تترك المقعد لمن هو أحوج إليه ككبير السن أو المرأة الحامل" },
+          { text: "تترك المقعد لشخص آخر", points: 15, feedback: "أحسنت! هذا من الأخلاق الإسلامية الرفيعة" },
+          { text: "تسارع وتجلس ثم تتركه إذا رأيت من يحتاجه", points: 5, feedback: "ليس سيئًا، لكن الأفضل أن تتركه من البداية" },
+          { text: "تسأل من حولك إذا كان أحد يحتاج المقعد", points: 20, feedback: "تصرف رائع! الجمع بين الأدب وحسن المعاملة" }
+        ],
+        hint: "قال ﷺ: 'لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه'"
+      },
+      {
+        id: 10,
+        stage: "مع الجيران",
+        situation: "سمعت جارك الجديد يطلب مساعدتك في نقل أثاثه. ماذا تفعل؟",
+        options: [
+          { text: "تتجاهل طلبه وتغلق الباب", points: -15, feedback: "إساءة الجوار من الأمور التي حذر منها الإسلام" },
+          { text: "تعتذر بأنك مشغول", points: -5, feedback: "مساعدة الجار من حق الجوار في الإسلام" },
+          { text: "تساعده في نقل بعض الأثاث", points: 15, feedback: "أحسنت! هذا من حسن الجوار الذي أمرنا به" },
+          { text: "تساعده وتدعو بعض الأصدقاء لمساعدته أيضًا", points: 25, feedback: "تصرف ممتاز! جمعت بين المساعدة والتعاون على الخير" }
+        ],
+        hint: "قال ﷺ: 'ما زال جبريل يوصيني بالجار حتى ظننت أنه سيورثه'"
+      }
+    ];
+
+    const rewards = [
+      {
+        id: 1,
+        title: "بطاقة دعاء",
+        description: "اللهم إني أسألك فعل الخيرات، وترك المنكرات، وحب المساكين، وأن تتوب عليّ، وأن تغفر لي، وأن ترحمني.",
+        pointsRequired: 50
+      },
+      {
+        id: 2,
+        title: "حديث شريف",
+        description: "قال رسول الله ﷺ: 'من كان يؤمن بالله واليوم الآخر فليقل خيرًا أو ليصمت، ومن كان يؤمن بالله واليوم الآخر فليكرم جاره، ومن كان يؤمن بالله واليوم الآخر فليكرم ضيفه'",
+        pointsRequired: 100
+      },
+      {
+        id: 3,
+        title: "نصيحة يومية",
+        description: "ابدأ يومك بقراءة آية الكرسي والمعوذات، فهي تحفظك من الشيطان وتجلب البركة في وقتك وعملك.",
+        pointsRequired: 150
+      },
+      {
+        id: 4,
+        title: "قصة صحابي",
+        description: "كان أبو بكر الصديق رضي الله عنه يطلق عليه 'العتيق' لأن النبي ﷺ قال له: 'أنت عتيق الله من النار'. وكان معروفًا بكرمه وتضحيته في سبيل الإسلام.",
+        pointsRequired: 200
+      },
+      {
+        id: 5,
+        title: "فضائل أعمال",
+        description: "صلاة الضحى: قال ﷺ: 'يُصبح على كل سلامى من أحدكم صدقة، فكل تسبيحة صدقة، وكل تحميدة صدقة، وكل تهليلة صدقة، وكل تكبيرة صدقة، وأمر بالمعروف صدقة، ونهي عن المنكر صدقة، ويجزئ من ذلك ركعتان يركعهما من الضحى'",
+        pointsRequired: 250
+      }
+    ];
+
+    let currentSituation = 0;
+    let totalPoints = 0;
+    let goodDeeds = 0;
+    let badDeeds = 0;
+    let earnedRewards = [];
+    let usedHelp = { skip: false, advice: false, hint: false };
+
+    function updateStats() {
+      document.getElementById("currentStage").textContent = currentSituation + 1;
+      document.getElementById("totalStages").textContent = situations.length;
+      document.getElementById("goodDeeds").textContent = goodDeeds;
+      document.getElementById("badDeeds").textContent = badDeeds;
+      document.getElementById("points").textContent = totalPoints;
+      document.getElementById("rewards").textContent = earnedRewards.length;
+      
+      const progress = ((currentSituation) / situations.length) * 100;
+      document.getElementById("progressBar").style.width = `${progress}%`;
+      document.getElementById("progressBar").textContent = `${Math.round(progress)}%`;
+      
+      checkRewards();
+    }
+
+    function checkRewards() {
+      const rewardContainer = document.getElementById("rewardContainer");
+      rewardContainer.innerHTML = "";
+      
+      rewards.forEach(reward => {
+        if (totalPoints >= reward.pointsRequired && !earnedRewards.includes(reward.id)) {
+          earnedRewards.push(reward.id);
+          const rewardElement = document.createElement("div");
+          rewardElement.className = "reward-card";
+          rewardElement.innerHTML = `
+            <h3>🎉 لقد كسبت جائزة: ${reward.title}</h3>
+            <p>${reward.description}</p>
+          `;
+          rewardContainer.appendChild(rewardElement);
+        }
+      });
+    }
+
+    function getEncouragingMessage() {
+      const percentage = (totalPoints / (situations.length * 25)) * 100;
+      
+      if (percentage >= 80) {
+        return "🎉 ممتاز! أنت على طريق الجنة بإذن الله!";
+      } else if (percentage >= 60) {
+        return "👍 رائع! استمر في فعل الخيرات!";
+      } else if (percentage >= 40) {
+        return "👏 جيد! كل خطوة نحو الخير تزيدك قربًا من الجنة";
+      } else {
+        return "🔜 لا بأس! ابدأ من جديد وتذكر أن التوبة تجب ما قبلها";
+      }
+    }
+
+    function loadSituation() {
+      updateStats();
+      const situation = situations[currentSituation];
+      document.getElementById('situation').textContent = `${situation.stage}: ${situation.situation}`;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+
+      // خلط الخيارات عشوائياً
+      const shuffledOptions = [...situation.options].sort(() => Math.random() - 0.5);
+      
+      shuffledOptions.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option.text;
+        btn.onclick = () => makeDecision(option, btn);
+        optionsDiv.appendChild(btn);
+      });
+
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('feedback').className = 'feedback';
+      
+      // إعادة تفعيل مساعدات اللعبة لكل موقف جديد
+      usedHelp = { skip: false, advice: false, hint: false };
+      document.getElementById('skipSituationBtn').classList.remove('disabled');
+      document.getElementById('islamicAdviceBtn').classList.remove('disabled');
+      document.getElementById('hintBtn').classList.remove('disabled');
+    }
+
+    function makeDecision(option, btn) {
+      const feedback = document.getElementById('feedback');
+      const encouragementMessage = document.getElementById('encouragementMessage');
+
+      totalPoints += option.points;
+      if (option.points > 0) {
+        goodDeeds++;
+        feedback.textContent = `✅ ${option.feedback}`;
+        feedback.classList.add('correct');
+      } else {
+        badDeeds++;
+        feedback.textContent = `❌ ${option.feedback}`;
+        feedback.classList.add('wrong');
+      }
+
+      // تعطيل جميع الأزرار بعد الاختيار
+      const allButtons = document.querySelectorAll('.options button');
+      allButtons.forEach(button => {
+        button.classList.add('disabled');
+      });
+
+      encouragementMessage.textContent = getEncouragingMessage();
+      encouragementMessage.style.display = 'block';
+      setTimeout(() => {
+        encouragementMessage.style.display = 'none';
+      }, 2000);
+
+      currentSituation++;
+      if (currentSituation < situations.length) {
+        setTimeout(loadSituation, 3000);
+      } else {
+        setTimeout(endGame, 3000);
+      }
+    }
+
+    function endGame() {
+      const feedback = document.getElementById('feedback');
+      feedback.textContent = `🎉 انتهت الرحلة! درجتك النهائية: ${totalPoints} نقطة. 
+      ${totalPoints >= situations.length * 15 ? "أحسنت! أنت على الطريق الصحيح إلى الجنة!" : "لا بأس، كل بداية صعبة، استمر في التعلم والعمل الصالح!"}`;
+      feedback.className = 'feedback correct';
+      
+      document.getElementById('options').innerHTML = '';
+      document.getElementById('situation').textContent = "انتهت جميع المواقف في رحلتك إلى الجنة";
+      
+      updateStats();
+    }
+
+    document.getElementById('skipSituationBtn').addEventListener('click', function() {
+      if (!usedHelp.skip) {
+        usedHelp.skip = true;
+        document.getElementById('skipSituationBtn').classList.add('disabled');
+        currentSituation++;
+        if (currentSituation < situations.length) {
+          loadSituation();
+        } else {
+          endGame();
+        }
+      } else {
+        alert("لقد استخدمت خيار التخطي بالفعل في هذا الموقف");
+      }
+    });
+
+    document.getElementById('islamicAdviceBtn').addEventListener('click', function() {
+      if (!usedHelp.advice) {
+        usedHelp.advice = true;
+        document.getElementById('islamicAdviceBtn').classList.add('disabled');
+        const advice = [
+          "قال ﷺ: 'إنما الأعمال بالنيات'",
+          "قال تعالى: 'إن الله مع الصابرين'",
+          "قال ﷺ: 'اتق الله حيثما كنت'",
+          "قال ﷺ: 'الكلمة الطيبة صدقة'",
+          "قال تعالى: 'وتعاونوا على البر والتقوى'"
+        ];
+        const randomAdvice = advice[Math.floor(Math.random() * advice.length)];
+        alert(`نصيحة إسلامية:\n${randomAdvice}`);
+      } else {
+        alert("لقد استخدمت النصيحة الإسلامية بالفعل في هذا الموقف");
+      }
+    });
+
+    document.getElementById('hintBtn').addEventListener('click', function() {
+      if (!usedHelp.hint) {
+        usedHelp.hint = true;
+        document.getElementById('hintBtn').classList.add('disabled');
+        if (situations[currentSituation]) {
+          const hint = situations[currentSituation].hint || "فكر في القيم الإسلامية الأساسية مثل الصدق والأمانة والإحسان";
+          alert(`تلميح:\n${hint}`);
+        }
+      } else {
+        alert("لقد استخدمت التلميح بالفعل في هذا الموقف");
+      }
+    });
+
+    // زر الرجوع للأعلى
+    const btn = document.getElementById("backToTop");
+
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+
+    btn.onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // بدء اللعبة
+    loadSituation();
+  </script>
+</body>
+</html>

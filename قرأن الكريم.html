@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>القرآن الكريم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1a5f45;
+      --secondary-color: #2d8a6b;
+      --accent-color: #f0a830;
+      --light-color: #f8f9fa;
+      --dark-color: #333;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e0f2e9);
+      color: #2c3e50;
+      line-height: 1.8;
+    }
+  
+    header {
+      background: url('https://www.alsharqtoday.com/wp-content/uploads/2021/02/%D8%A7%D9%84%D8%A7%D8%B3%D9%84%D8%A7%D9%85.jpg') center/cover no-repeat;
+      height: 65vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+      position: relative;
+    }
+  
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+  
+    header h1 {
+      font-size: 3.5em;
+      z-index: 2;
+      position: relative;
+      padding: 0 1em;
+    }
+  
+    .container {
+      padding: 3em 1.5em;
+      max-width: 1000px;
+      margin: auto;
+    }
+  
+    .quran-card {
+      background: white;
+      margin-bottom: 2em;
+      padding: 2em;
+      border-radius: 20px;
+      border: 1px solid #d1e7dd;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+  
+    .quran-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+  
+    .quran-card h2 {
+      color: var(--primary-color);
+      font-size: 1.8em;
+      margin-bottom: 0.5em;
+      position: relative;
+      text-align: center;
+    }
+  
+    .quran-card h2::before {
+      content: " ☪";
+      position: absolute;
+      left: 1.5em;
+      font-size: 1em;
+    }
+  
+    .quran-card p {
+      font-size: 1.1em;
+      color: #444;
+      text-align: justify;
+      line-height: 2;
+    }
+  
+    .arabic-text {
+      font-size: 1.5em;
+      text-align: right;
+      line-height: 2.5;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .translation {
+      font-size: 1.1em;
+      color: #666;
+      border-right: 3px solid var(--accent-color);
+      padding-right: 15px;
+      margin: 15px 0;
+    }
+    
+    .tafsir {
+      font-style: italic;
+      color: #777;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  
+    select {
+      padding: 12px;
+      font-size: 18px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      background-color: #f9f9f9;
+      transition: 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+      color: #333;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    select:focus {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 8px rgba(45, 138, 107, 0.5);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5em;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+    }
+  
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 999;
+      font-size: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+
+    #backToTop:hover {
+      background-color: #0d3b2a;
+    }
+    
+    nav {
+      background-color: var(--secondary-color);
+      text-align: center;
+      padding: 0.8em 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+      gap: 20px; 
+    }
+
+    nav li {
+      margin: 0; 
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: color 0.3s ease;
+      padding: 0.5em 1em; 
+      display: inline-block;
+      text-align: center;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+      background-color: rgba(255, 255, 255, 0.1); 
+      border-radius: 4px; 
+    }
+
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 10px; 
+      }
+      
+      nav li {
+        width: 100%;
+      }
+      
+      nav a {
+        padding: 0.8em; 
+      }
+      
+      header h1 {
+        font-size: 2em;
+      }
+  
+      .quran-card {
+        padding: 1.2em;
+      }
+  
+      .quran-card h2 {
+        font-size: 1.4em;
+      }
+  
+      .quran-card p {
+        font-size: 1em;
+      }
+      
+      .arabic-text {
+        font-size: 1.2em;
+      }
+    }
+    
+    #nextAyahBtn {
+      margin-top: 1.5em;
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 0.7em 1.5em;
+      font-size: 1.1em;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-family: 'Cairo', sans-serif;
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    #nextAyahBtn:hover {
+      background-color: var(--primary-color);
+      transform: scale(1.05);
+    }
+    
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .surah-info {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-right: 4px solid var(--accent-color);
+    }
+    
+    .surah-info p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .school-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 5px;
+      color: var(--light-color);
+    }
+
+    .students {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .student {
+      color: rgba(255,255,255,0.9);
+    }
+
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+        <a href="الصفحة الرئيسية.html">الصفحة الرئيسية </a>
+    </div>
+  </nav>
+ 
+  <header>
+    <h1>القرآن الكريم</h1>
+  </header>
+
+  <div class="container">
+    <label for="surahSelect">اختر سورة:</label>
+    <select id="surahSelect">
+      <option disabled selected>اختر سورة من القائمة</option>
+    </select>
+
+    <div id="loadingIndicator" style="display: none;">
+      <span class="loading"></span> جاري تحميل الآيات...
+    </div>
+
+    <div id="quranContainer"></div>
+  </div>
+
+  
+
+  <!-- زر الرجوع للأعلى -->
+  <button id="backToTop" title="الرجوع للأعلى">↑</button>
+
+  <script>
+    const surahSelect = document.getElementById("surahSelect");
+    const quranContainer = document.getElementById("quranContainer");
+    const loadingIndicator = document.getElementById("loadingIndicator");
+    
+    let currentSurah = null;
+    let currentAyahIndex = 0;
+    
+    // تفسير السعدي المدمج (أمثلة محدودة)
+    const tafsirData = {
+      1: {
+        1: "الفاتحة: سورة مكية، وهي سبع آيات، وسميت بذلك لأنها فاتحة الكتاب العزيز.",
+        2: "الحمد لله رب العالمين: الثناء على الله بصفاته التي كلّها أوصاف كمال.",
+        3: "الرحمن الرحيم: اسمان دالان على أنه تعالى ذو الرحمة الواسعة العظيمة.",
+        4: "مالك يوم الدين: أي يوم الجزاء والحساب.",
+        5: "إياك نعبد وإياك نستعين: إفراد الله بالعبادة والاستعانة.",
+        6: "اهدنا الصراط المستقيم: طلب الهداية إلى الطريق الواضح الموصل إلى رضوان الله.",
+        7: "صراط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين: الطريق الموصّل إلى الله تعالى."
+      },
+      2: {
+        1: "الم: حروف مقطعة للتنبيه على إعجاز القرآن.",
+        2: "ذلك الكتاب لا ريب فيه هدى للمتقين: القرآن الكريم لا شك فيه أنه من عند الله.",
+        3: "الذين يؤمنون بالغيب ويقيمون الصلاة ومما رزقناهم ينفقون: صفات المتقين."
+      },
+      114: {
+        1: "قل أعوذ برب الناس: الاستعاذة بالله من شرور النفس والشيطان.",
+        2: "ملك الناس: المتصرف في خلقه كيف يشاء.",
+        3: "إله الناس: المستحق للعبادة وحده.",
+        4: "من شر الوسواس الخناس: الشيطان الذي يوسوس ثم يخنس.",
+        5: "الذي يوسوس في صدور الناس: يلقى الشكوك والوساوس.",
+        6: "من الجنة والناس: من شياطين الإنس والجن."
+      }
+    };
+    
+    // دالة للحصول على التفسير المحلي
+    function getLocalTafsir(surahNumber, ayahNumber) {
+      if (tafsirData[surahNumber] && tafsirData[surahNumber][ayahNumber]) {
+        return tafsirData[surahNumber][ayahNumber];
+      }
+      return "التفسير غير متوفر لهذه الآية حالياً";
+    }
+    
+    // تحميل قائمة السور
+    fetch("https://api.quran.gading.dev/surah")
+      .then(res => res.json())
+      .then(data => {
+        data.data.forEach(surah => {
+          const option = document.createElement("option");
+          option.value = surah.number;
+          option.textContent = `${surah.number}. ${surah.name.long} (${surah.name.translation.ar})`;
+          surahSelect.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error("حدث خطأ في تحميل السور:", error);
+        surahSelect.innerHTML = "<option>حدث خطأ في تحميل السور</option>";
+      });
+    
+    // عند تغيير السورة
+    surahSelect.addEventListener("change", function() {
+      const surahNumber = this.value;
+      if (!surahNumber) return;
+      
+      loadingIndicator.style.display = "block";
+      quranContainer.innerHTML = "";
+      
+      fetch(`https://api.quran.gading.dev/surah/${surahNumber}`)
+        .then(res => res.json())
+        .then(data => {
+          currentSurah = data.data;
+          currentAyahIndex = 0;
+          renderAyah();
+          loadingIndicator.style.display = "none";
+        })
+        .catch(error => {
+          console.error("حدث خطأ في تحميل الآيات:", error);
+          quranContainer.innerHTML = "<p>حدث خطأ في تحميل الآيات</p>";
+          loadingIndicator.style.display = "none";
+        });
+    });
+    
+    function renderAyah() {
+      if (!currentSurah || !currentSurah.verses || currentSurah.verses.length === 0) {
+        quranContainer.innerHTML = "<p>لا توجد آيات متاحة لهذه السورة</p>";
+        return;
+      }
+      
+      const ayah = currentSurah.verses[currentAyahIndex];
+      const tafsirText = getLocalTafsir(currentSurah.number, ayah.number.inSurah);
+      
+      quranContainer.innerHTML = `
+        <div class="surah-info">
+          <h2>${currentSurah.name.long} - ${currentSurah.name.translation.ar}</h2>
+          <p>عدد الآيات: ${currentSurah.numberOfVerses} | نوع السورة: ${currentSurah.revelation.ar}</p>
+        </div>
+        
+        <div class="quran-card">
+          <div class="arabic-text">(${ayah.number.inSurah}) ${ayah.text.arab}</div>
+          <div class="translation">الترجمة: ${ayah.translation.id || "غير متاحة"}</div>
+          <div class="tafsir">التفسير: ${tafsirText}</div>
+          <button id="nextAyahBtn">الآية التالية</button>
+        </div>
+      `;
+      
+      // زر التالي
+      document.getElementById("nextAyahBtn").addEventListener("click", () => {
+        currentAyahIndex++;
+        if (currentAyahIndex >= currentSurah.verses.length) {
+          currentAyahIndex = 0; // العودة للآية الأولى
+        }
+        renderAyah();
+        window.scrollTo({ top: quranContainer.offsetTop - 100, behavior: 'smooth' });
+      });
+    }
+    
+    // زر الرجوع للأعلى
+    const btn = document.getElementById("backToTop");
+    
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+    
+    btn.onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  </script>
+</body>
+</html>

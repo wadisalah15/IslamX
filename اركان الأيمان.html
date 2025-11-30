@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أركان الأيمان</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1a5f45;
+      --secondary-color: #2d8a6b;
+      --accent-color: #f0a830;
+      --light-color: #f8f9fa;
+      --dark-color: #333;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e0f2e9);
+      color: #2c3e50;
+      line-height: 1.8;
+    }
+  
+    header {
+      background: url('https://www.ahmadiyya-islam.org/altaqwa/wp-content/uploads/sites/19/2021/03/8_June_93.jpg') center/cover no-repeat;
+      height: 65vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+      position: relative;
+    }
+  
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+  
+    header h1 {
+      font-size: 3.5em;
+      z-index: 2;
+      position: relative;
+      padding: 0 1em;
+    }
+  
+    .container {
+      padding: 3em 1.5em;
+      max-width: 1000px;
+      margin: auto;
+    }
+  
+    .pillar {
+      background: white;
+      margin-bottom: 2em;
+      padding: 2em;
+      border-radius: 20px;
+      border: 1px solid #d1e7dd;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+  
+    .pillar:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+  
+    .pillar h2 {
+      color: var(--primary-color);
+      font-size: 1.8em;
+      margin-bottom: 0.5em;
+      position: relative;
+    }
+  
+    .pillar h2::before {
+      content: " ☪";
+      position: absolute;
+      left: 1.5em;
+      font-size: 1em;
+    }
+  
+    .pillar p {
+      font-size: 1.1em;
+      color: #444;
+    }
+  
+    footer {
+      text-align: center;
+      padding: 1.5em;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+    }
+  
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+  
+      .pillar {
+        padding: 1.2em;
+      }
+  
+      .pillar h2 {
+        font-size: 1.4em;
+      }
+  
+      .pillar p {
+        font-size: 1em;
+      }
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 999;
+      font-size: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+
+    #backToTop:hover {
+      background-color: #0d3b2a;
+    }
+    
+  
+  nav {
+    background-color: var(--secondary-color);
+    text-align: center;
+    padding: 0.8em 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 20px; 
+  }
+
+  nav li {
+    margin: 0; 
+    text-align: center;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+    padding: 0.5em 1em; 
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .school-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 5px;
+      color: var(--light-color);
+    }
+
+    .students {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .student {
+      color: rgba(255,255,255,0.9);
+    }
+
+  nav a:hover {
+    color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 4px; 
+  }
+
+  @media (max-width: 600px) {
+    nav ul {
+      flex-direction: column;
+      gap: 10px; 
+    }
+    
+    nav li {
+      width: 100%;
+    }
+    
+    nav a {
+      padding: 0.8em; 
+    }
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="الصفحة الرئيسية.html">الصفحة الرئيسية </a>
+    </div>
+</nav>
+ 
+  <header>
+    <h1>أركان الإيمان الستة
+      <div class="card">
+        <ol>
+            <li style="font-size: 25px;">الإيمان بالله تعالى</li>
+            <li style="font-size: 25px;">الإيمان بالملائكة</li>
+            <li style="font-size: 25px;">الإيمان بالكتب السماوية</li>
+            <li style="font-size: 25px;">الإيمان بالرسل والأنبياء</li>
+            <li style="font-size: 25px;">الإيمان باليوم الآخر</li>
+            <li style="font-size: 25px;">الإيمان بالقدر خيره وشره</li>
+        </ol>
+    </div
+    </h1>
+</header>
+<div class="container">
+  <div class="pillar">
+    <h2>1. الإيمان بالله</h2>
+    <p>
+      الإيمان بالله هو الاعتقاد الجازم بوجود الله سبحانه وتعالى، وأنه وحده المستحق للعبادة دون شريك. <br>
+      يتضمن الإيمان بأسمائه وصفاته كما وردت في القرآن الكريم والسنة النبوية، وتنزيهه عن كل نقص وعيب. <br>
+      الإيمان بالله هو أصل الأصول وأساس العقيدة الإسلامية.
+    </p>
+  </div>
+
+  <div class="pillar">
+    <h2>2. الإيمان بالملائكة</h2>
+    <p>
+      الإيمان بالملائكة يعني التصديق بوجودهم وأنهم مخلوقات نورانية، لا يعصون الله ما أمرهم ويفعلون ما يؤمرون. <br>
+      لكل ملك مهمة محددة، مثل جبريل عليه السلام الذي ينزل بالوحي، وميكائيل الموكل بالأرزاق، وملك الموت لقبض الأرواح. <br>
+      الإيمان بالملائكة يعزز في النفس الشعور بمراقبة الله وعظمته.
+    </p>
+  </div>
+
+  <div class="pillar">
+    <h2>3. الإيمان بالكتب السماوية</h2>
+    <p>
+      الإيمان بالكتب السماوية هو التصديق بأن الله أنزل كتبًا على رسله لهداية البشر. <br>
+      من هذه الكتب: التوراة، والإنجيل، والزبور، والقرآن الكريم الذي هو خاتم الكتب وأكملها. <br>
+      الإيمان بالكتب يتطلب العمل بما جاء في القرآن، واعتقاد أن ما سواه قد وقع فيه التحريف.
+    </p>
+  </div>
+
+  <div class="pillar">
+    <h2>4. الإيمان بالرسل</h2>
+    <p>
+      الإيمان بالرسل يعني التصديق بأن الله أرسل رسلاً إلى البشرية ليبلغوا رسالته، ويهدوا الناس إلى الحق. <br>
+      نؤمن بجميع الرسل الذين ذُكروا في القرآن، وأعظمهم خاتم الأنبياء والمرسلين محمد ﷺ. <br>
+      الإيمان بالرسل يقتضي اتباع ما جاء به النبي محمد ﷺ لأنه خاتم الأنبياء.
+    </p>
+  </div>
+
+  <div class="pillar">
+    <h2>5. الإيمان باليوم الآخر</h2>
+    <p>
+      الإيمان باليوم الآخر هو التصديق الجازم بأن هناك حياة بعد الموت، وفيها يُحاسب الإنسان على عمله. <br>
+      يتضمن الإيمان بالبعث، والنشور، والحساب، والميزان، والجنة والنار. <br>
+      هذا الإيمان يحفز الإنسان للاستقامة والعمل الصالح استعدادًا لذلك اليوم العظيم.
+    </p>
+  </div>
+
+  <div class="pillar">
+    <h2>6. الإيمان بالقدر خيره وشره</h2>
+    <p>
+      الإيمان بالقدر يعني الاعتقاد بأن كل ما يجري في الكون هو بعلم الله وإرادته. <br>
+      يشمل الإيمان بأن ما أصاب الإنسان لم يكن ليخطئه، وما أخطأه لم يكن ليصيبه. <br>
+      الإيمان بالقدر يمنح الإنسان راحة نفسية، ويعلمه الرضا بقضاء الله والتوكل عليه.
+    </p>
+  </div>
+</div>
+
+  <!-- زر الرجوع للأعلى -->
+<button id="backToTop" title="الرجوع للأعلى">↑</button>
+
+<script>
+  // زر الرجوع للأعلى
+  const btn = document.getElementById("backToTop");
+
+  window.onscroll = function() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  };
+
+  btn.onclick = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+</script>
+
+</body>
+</html>

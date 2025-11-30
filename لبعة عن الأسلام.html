@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لعبة إسلامية تعليمية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1a5f45;
+      --secondary-color: #2d8a6b;
+      --accent-color: #f0a830;
+      --light-color: #f8f9fa;
+      --dark-color: #333;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e0f2e9);
+      color: #2c3e50;
+      line-height: 1.8;
+    }
+  
+    header {
+      background: url('https://www.alsharqtoday.com/wp-content/uploads/2021/02/%D8%A7%D9%84%D8%A7%D8%B3%D9%84%D8%A7%D9%85.jpg') center/cover no-repeat;
+      height: 65vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+      position: relative;
+    }
+  
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+  
+    header h1 {
+      font-size: 3.5em;
+      z-index: 2;
+      position: relative;
+      padding: 0 1em;
+    }
+  
+    .container {
+      padding: 3em 1.5em;
+      max-width: 1000px;
+      margin: auto;
+    }
+  
+    .game-section {
+      background: white;
+      margin-bottom: 2em;
+      padding: 2em;
+      border-radius: 20px;
+      border: 1px solid #d1e7dd;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+  
+    .game-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+  
+    .game-section h2 {
+      color: var(--primary-color);
+      font-size: 1.8em;
+      margin-bottom: 0.5em;
+      position: relative;
+      text-align: center;
+    }
+  
+    .game-section h2::before {
+      content: " ☪";
+      position: absolute;
+      left: 1.5em;
+      font-size: 1em;
+    }
+  
+    .stats-bar {
+      display: flex;
+      justify-content: space-around;
+      background-color: #e0f2e9;
+      padding: 1em;
+      font-weight: bold;
+      margin-bottom: 1.5em;
+      border-radius: 10px;
+      border: 1px solid var(--secondary-color);
+      flex-wrap: wrap;
+    }
+    
+    .stats-bar div {
+      margin: 5px;
+    }
+    
+    .progress-container {
+      width: 100%;
+      height: 30px;
+      background-color: #f1f1f1;
+      border-radius: 15px;
+      margin: 1em 0;
+      overflow: hidden;
+    }
+  
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+      border-radius: 15px;
+      transition: width 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+  
+    .question {
+      font-size: 1.3em;
+      margin-bottom: 1em;
+      color: var(--primary-color);
+      text-align: right;
+    }
+  
+    .options button {
+      display: block;
+      width: 100%;
+      padding: 1em;
+      margin: 0.5em 0;
+      font-size: 1.1em;
+      background-color: #f8f9fa;
+      border: 1px solid #d1e7dd;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  
+    .options button:hover {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+  
+    .options button.disabled {
+      background-color: #d3d3d3;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+  
+    .feedback {
+      margin-top: 1.5em;
+      font-weight: bold;
+      font-size: 1.1em;
+      text-align: center;
+      padding: 1em;
+      border-radius: 10px;
+    }
+  
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+  
+    .wrong {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  
+    .help-options {
+      text-align: center;
+      margin-top: 2em;
+    }
+  
+    .help-options button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  
+    .help-options button:hover {
+      background-color: #e69500;
+    }
+  
+    .help-options button.disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  
+    .encouragement-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+      z-index: 1000;
+    }
+  
+    footer {
+      text-align: center;
+      padding: 1.5em;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.1em;
+      margin-top: 2em;
+    }
+  
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 999;
+      font-size: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+  
+    #backToTop:hover {
+      background-color: #0d3b2a;
+    }
+    
+    nav {
+      background-color: var(--secondary-color);
+      padding: 0.8em 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  
+    nav li {
+      margin: 0;
+      text-align: center;
+    }
+  
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      padding: 0.5em 1em;
+      display: inline-block;
+      text-align: center;
+    }
+  
+    nav a:hover {
+      color: var(--accent-color);
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+  
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+  
+      .game-section {
+        padding: 1.2em;
+      }
+  
+      .game-section h2 {
+        font-size: 1.4em;
+      }
+  
+      .stats-bar {
+        flex-direction: column;
+        gap: 10px;
+      }
+  
+      nav ul {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+
+    .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .school-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 5px;
+      color: var(--light-color);
+    }
+
+    .students {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .student {
+      color: rgba(255,255,255,0.9);
+    }
+
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <a href="الصفحة الرئيسية.html">الصفحة الرئيسية </a>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>لعبة الأسئلة الإسلامية</h1>
+  </header>
+
+  <div class="container">
+    <div class="game-section">
+      <div class="stats-bar">
+        <div>📋 عدد الأسئلة: <span id="totalQuestions">0</span></div>
+        <div>❓ المتبقي: <span id="remainingQuestions">0</span></div>
+        <div>✔️ صحيحة: <span id="correctAnswers">0</span></div>
+        <div>❌ خاطئة: <span id="wrongAnswers">0</span></div>
+        <div>⭐ النقاط: <span id="points">0</span></div>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar" style="width: 0%">0%</div>
+      </div>
+
+      <div class="question" id="question">جارٍ تحميل السؤال...</div>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+
+      <div class="help-options">
+        <button id="skipQuestionBtn">تخطي سؤال</button>
+        <button id="showAnswerBtn">عرض الإجابة</button>
+        <button id="hintBtn">إظهار تلميح</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="encouragementMessage" class="encouragement-message"></div>
+
+  
+  <button id="backToTop" title="الرجوع للأعلى">↑</button>
+
+  
+
+  <script>
+    const questions = [
+      {
+        question: "ما هو الركن الأول من أركان الإسلام؟",
+        options: ["الصلاة", "الشهادتان", "الزكاة", "الحج"],
+        answer: "الشهادتان",
+        hint: "هو أول فعل يقوم به المسلم في الإسلام."
+      },
+      {
+        question: "كم عدد ركعات صلاة الفجر؟",
+        options: ["2", "3", "4", "5"],
+        answer: "2",
+        hint: "يتم أداؤها قبل شروق الشمس."
+      },
+      {
+        question: "في أي شهر يصوم المسلمون؟",
+        options: ["ذو الحجة", "شعبان", "رمضان", "رجب"],
+        answer: "رمضان",
+        hint: "هذا الشهر يأتي بعد شهر شعبان."
+      },
+      {
+        question: "إلى أين يحج المسلمون؟",
+        options: ["القدس", "المدينة", "مكة", "الرياض"],
+        answer: "مكة",
+        hint: "مدينة في المملكة العربية السعودية."
+      },
+      {
+        question: "ما هي الغزوة التي وقعت في السنة الثانية للهجرة؟",
+        options: ["غزوة بدر", "غزوة أحد", "غزوة الخندق", "غزوة حنين"],
+        answer: "غزوة بدر",
+        hint: "كانت أول معركة كبيرة بين المسلمين وكفار قريش."
+      },
+      {
+        question: "ما هو اسم المخلوق الذي أسري بالنبي صلى الله عليه وسلم على ظهره في رحلة الإسراء؟",
+        options: ["البراق", "الفرس", "الجمل", "الحمار"],
+        answer: "البراق",
+        hint: "حيوان يشبه الخيل وكان يطير."
+      },
+      {
+        question: "في أي مسجد انتهت رحلة الإسراء والمعراج؟",
+        options: ["مسجد المدينة", "المسجد الأقصى", "المسجد النبوي", "مسجد قباء"],
+        answer: "المسجد الأقصى",
+        hint: "الرحلة كانت من المسجد الحرام إلى هذا المسجد."
+      },
+      {
+        question: "كم سنة استمرت الدعوة الإسلامية في مكة قبل الهجرة؟",
+        options: ["10 سنوات", "13 سنة", "15 سنة", "20 سنة"],
+        answer: "13 سنة",
+        hint: "كانت الدعوة في مكة قبل أن ينتقل المسلمون إلى المدينة."
+      },
+      {
+        question: "ما هو اسم كتاب الله الذي أنزل على النبي محمد صلى الله عليه وسلم؟",
+        options: ["الزبر", "الإنجيل", "التوراة", "القرآن"],
+        answer: "القرآن",
+        hint: "كتاب الله الذي نزل على النبي محمد صلى الله عليه وسلم."
+      },
+      {
+        question: "من هو الصحابي الذي عرف بلقب أمين الأمة؟",
+        options: ["أبو بكر الصديق", "عمر بن الخطاب", "عثمان بن عفان", "أبو عبيدة بن الجراح"],
+        answer: "أبو عبيدة بن الجراح",
+        hint: "هو أحد القادة العسكريين البارزين في الإسلام."
+      },
+      {
+        question: "ما هي السورة التي تسمى قلب القرآن؟",
+        options: ["البقرة", "يس", "الفاتحة", "الكهف"],
+        answer: "يس",
+        hint: "هذه السورة لها فضل عظيم في القرآن الكريم."
+      },
+      {
+        question: "كم عدد أركان الإسلام؟",
+        options: ["4", "5", "6", "7"],
+        answer: "5",
+        hint: "منها الشهادتان والصلاة والزكاة."
+      },
+      {
+        question: "من هو أول من آمن بالنبي صلى الله عليه وسلم من الرجال؟",
+        options: ["أبو بكر الصديق", "عمر بن الخطاب", "علي بن أبي طالب", "زيد بن حارثة"],
+        answer: "أبو بكر الصديق",
+        hint: "هو أول الخلفاء الراشدين."
+      },
+      {
+        question: "ما هي أعظم سورة في القرآن الكريم؟",
+        options: ["البقرة", "الفاتحة", "آل عمران", "الرحمن"],
+        answer: "الفاتحة",
+        hint: "تسمى بأم الكتاب."
+      },
+      {
+        question: "كم عدد سور القرآن الكريم؟",
+        options: ["110", "114", "120", "124"],
+        answer: "114",
+        hint: "منها المكية والمدنية."
+      },
+      {
+        question: "ما هي أطول سورة في القرآن الكريم؟",
+        options: ["البقرة", "آل عمران", "النساء", "المائدة"],
+        answer: "البقرة",
+        hint: "عدد آياتها 286 آية."
+      },
+      {
+        question: "ما هي أقصر سورة في القرآن الكريم؟",
+        options: ["الكوثر", "العصر", "النصر", "الإخلاص"],
+        answer: "الكوثر",
+        hint: "عدد آياتها 3 آيات."
+      },
+      {
+        question: "من هو النبي الذي سمي بخليل الله؟",
+        options: ["محمد", "إبراهيم", "موسى", "عيسى"],
+        answer: "إبراهيم",
+        hint: "هو أبو الأنبياء."
+      },
+      {
+        question: "ما هي الصلاة التي ليس فيها ركوع ولا سجود؟",
+        options: ["صلاة الجنازة", "صلاة الاستسقاء", "صلاة الكسوف", "صلاة التراويح"],
+        answer: "صلاة الجنازة",
+        hint: "تؤدى على الميت."
+      },
+      {
+        question: "كم عدد الركعات في صلاة الظهر؟",
+        options: ["2", "3", "4", "5"],
+        answer: "4",
+        hint: "من الصلوات المفروضة."
+      },
+      {
+        question: "ما هو اسم زوجة النبي صلى الله عليه وسلم التي تلقب بأم المؤمنين؟",
+        options: ["خديجة", "عائشة", "حفصة", "جميعهن"],
+        answer: "جميعهن",
+        hint: "كل زوجات النبي صلى الله عليه وسلم أمهات المؤمنين."
+      },
+      {
+        question: "ما هو اسم الصحابي الذي لقب بذي النورين؟",
+        options: ["عمر بن الخطاب", "عثمان بن عفان", "علي بن أبي طالب", "طلحة بن عبيد الله"],
+        answer: "عثمان بن عفان",
+        hint: "لأنه تزوج ابنتي النبي صلى الله عليه وسلم."
+      },
+      {
+        question: "ما هي السورة التي تسمى بسورة التوديع؟",
+        options: ["النصر", "الفتح", "العلق", "المسد"],
+        answer: "النصر",
+        hint: "نزلت قبل وفاة النبي صلى الله عليه وسلم."
+      },
+      {
+        question: "من هو النبي الذي أرسل إلى قوم عاد؟",
+        options: ["هود", "صالح", "لوط", "شعيب"],
+        answer: "هود",
+        hint: "قوم عاد كانوا في الأحقاف."
+      },
+      {
+        question: "ما هي السورة التي تبدأ بذكر التين والزيتون؟",
+        options: ["التين", "العلق", "القدر", "البلد"],
+        answer: "التين",
+        hint: "هي السورة رقم 95 في القرآن."
+      },
+      {
+        question: "كم عدد أحزاب القرآن الكريم؟",
+        options: ["30", "60", "90", "120"],
+        answer: "60",
+        hint: "كل حزب ينقسم إلى أرباع."
+      },
+      {
+        question: "من هو النبي الذي سمي بكليم الله؟",
+        options: ["إبراهيم", "موسى", "عيسى", "داود"],
+        answer: "موسى",
+        hint: "كلمه الله تعالى مباشرة."
+      },
+      {
+        question: "ما هي السورة التي تسمى بسورة الحواريين؟",
+        options: ["الصف", "المجادلة", "التحريم", "الحديد"],
+        answer: "الصف",
+        hint: "ذكر فيها الحواريون أصحاب عيسى عليه السلام."
+      },
+      {
+        question: "من هو الصحابي الذي لقب بترجمان القرآن؟",
+        options: ["عبد الله بن مسعود", "عبد الله بن عباس", "زيد بن ثابت", "أبو هريرة"],
+        answer: "عبد الله بن عباس",
+        hint: "كان حبر الأمة وترجمان القرآن."
+      },
+      {
+        question: "ما هي السورة التي تسمى بسورة بني إسرائيل؟",
+        options: ["النحل", "الإسراء", "الكهف", "مريم"],
+        answer: "الإسراء",
+        hint: "تتحدث عن رحلة الإسراء والمعراج."
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+    let correct = 0;
+    let wrong = 0;
+    let usedHelp = { skip: false, showAnswer: false, hint: false };
+
+    function updateStats() {
+      document.getElementById("totalQuestions").textContent = questions.length;
+      document.getElementById("remainingQuestions").textContent = questions.length - current;
+      document.getElementById("correctAnswers").textContent = correct;
+      document.getElementById("wrongAnswers").textContent = wrong;
+      document.getElementById("points").textContent = score;
+      
+      // تحديث شريط التقدم
+      const progress = (current / questions.length) * 100;
+      document.getElementById("progressBar").style.width = `${progress}%`;
+      document.getElementById("progressBar").textContent = `${Math.round(progress)}%`;
+    }
+
+    function getEncouragingMessage() {
+      const percentage = (score / (questions.length * 10)) * 100;
+      
+      if (percentage >= 80) {
+        return "🎉 ممتاز! أنت عالم في الإسلام!";
+      } else if (percentage >= 60) {
+        return "👍 رائع! معرفتك جيدة جداً!";
+      } else if (percentage >= 40) {
+        return "👏 جيد! استمر في التعلم!";
+      } else {
+
+      }
+    }
+
+    function loadQuestion() {
+      updateStats();
+      const q = questions[current];
+      document.getElementById('question').textContent = q.question;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+
+      // خلط الخيارات عشوائياً
+      const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+      
+      shuffledOptions.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(option, btn);
+        optionsDiv.appendChild(btn);
+      });
+
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('feedback').className = 'feedback';
+    }
+
+    function checkAnswer(selected, btn) {
+      const correctAnswer = questions[current].answer;
+      const feedback = document.getElementById('feedback');
+      const encouragementMessage = document.getElementById('encouragementMessage');
+
+      if (selected === correctAnswer) {
+        score += 10;
+        correct++;
+        feedback.textContent = "✅ إجابة صحيحة";
+        feedback.classList.add('correct');
+      } else {
+        wrong++;
+        feedback.textContent = `❌ إجابة خاطئة! الإجابة الصحيحة: ${correctAnswer}`;
+        feedback.classList.add('wrong');
+      }
+
+      // تعطيل جميع الأزرار بعد الإجابة
+      const allButtons = document.querySelectorAll('.options button');
+      allButtons.forEach(button => {
+        button.classList.add('disabled');
+        if (button.textContent === correctAnswer) {
+          button.style.backgroundColor = "#d4edda";
+          button.style.color = "#155724";
+        }
+      });
+
+      current++;
+      updateStats();
+
+      encouragementMessage.textContent = getEncouragingMessage();
+      encouragementMessage.style.display = 'block';
+      setTimeout(() => {
+        encouragementMessage.style.display = 'none';
+      }, 2000);
+
+      if (current < questions.length) {
+        setTimeout(loadQuestion, 2000);
+      } else {
+        setTimeout(() => {
+          document.getElementById('question').textContent = "🎉 انتهت اللعبة!";
+          document.getElementById('options').innerHTML = "";
+          feedback.textContent = `درجتك النهائية: ${score} من ${questions.length * 10}`;
+          feedback.className = 'feedback correct';
+          updateStats();
+        }, 2000);
+      }
+    }
+
+    document.getElementById('skipQuestionBtn').addEventListener('click', function() {
+      if (!usedHelp.skip) {
+        usedHelp.skip = true;
+        document.getElementById('skipQuestionBtn').classList.add('disabled');
+        current++;
+        if (current < questions.length) {
+          loadQuestion();
+        } else {
+          endGame();
+        }
+      } else {
+        alert("لقد قمت باستخدام خيار التخطي بالفعل.");
+      }
+    });
+
+    document.getElementById('showAnswerBtn').addEventListener('click', function() {
+      if (!usedHelp.showAnswer) {
+        usedHelp.showAnswer = true;
+        document.getElementById('showAnswerBtn').classList.add('disabled');
+        if (questions[current]) {
+          const correctAnswer = questions[current].answer;
+          alert("الإجابة الصحيحة هي: " + correctAnswer);
+        }
+      } else {
+        alert("لقد استخدم هذا الخيار بالفعل");
+      }
+    });
+
+    document.getElementById('hintBtn').addEventListener('click', function() {
+      if (!usedHelp.hint) {
+        usedHelp.hint = true;
+        document.getElementById('hintBtn').classList.add('disabled');
+        if (questions[current]) {
+          const hint = questions[current].hint || "إجابة بسيطة قد تساعدك!";
+          alert(hint);
+        }
+      } else {
+        alert("لقد استخدم هذا الخيار بالفعل");
+      }
+    });
+
+    function endGame() {
+      document.getElementById('question').textContent = "🎉 انتهت اللعبة!";
+      document.getElementById('options').innerHTML = "";
+      document.getElementById('feedback').textContent = `درجتك النهائية: ${score} من ${questions.length * 10}`;
+      document.getElementById('feedback').className = 'feedback correct';
+      updateStats();
+    }
+
+    // زر الرجوع للأعلى
+    const btn = document.getElementById("backToTop");
+
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+
+    btn.onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // بدء اللعبة
+    loadQuestion();
+  </script>
+</body>
+</html>

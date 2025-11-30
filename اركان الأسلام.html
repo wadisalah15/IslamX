@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أركان الإسلام</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1a5f45;
+      --secondary-color: #2d8a6b;
+      --accent-color: #f0a830;
+      --light-color: #f8f9fa;
+      --dark-color: #333;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa, #e0f2e9);
+      color: #2c3e50;
+      line-height: 1.8;
+    }
+  
+    header {
+      background: url('https://www.alsharqtoday.com/wp-content/uploads/2021/02/%D8%A7%D9%84%D8%A7%D8%B3%D9%84%D8%A7%D9%85.jpg') center/cover no-repeat;
+      height: 65vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+      position: relative;
+    }
+  
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+  
+    header h1 {
+      font-size: 3.5em;
+      z-index: 2;
+      position: relative;
+      padding: 0 1em;
+    }
+  
+    .container {
+      padding: 3em 1.5em;
+      max-width: 1000px;
+      margin: auto;
+    }
+  
+    .pillar {
+      background: white;
+      margin-bottom: 2em;
+      padding: 2em;
+      border-radius: 20px;
+      border: 1px solid #d1e7dd;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+  
+    .pillar:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+  
+    .pillar h2 {
+      color: var(--primary-color);
+      font-size: 1.8em;
+      margin-bottom: 0.5em;
+      position: relative;
+    }
+  
+    .pillar h2::before {
+      content: " ☪";
+      position: absolute;
+      left: 1.5em;
+      font-size: 1em;
+    }
+  
+    .pillar p {
+      font-size: 1.1em;
+      color: #444;
+    }
+  
+    footer {
+      text-align: center;
+      padding: 1.5em;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.1em;
+      letter-spacing: 1px;
+    }
+  
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+  
+      .pillar {
+        padding: 1.2em;
+      }
+  
+      .pillar h2 {
+        font-size: 1.4em;
+      }
+  
+      .pillar p {
+        font-size: 1em;
+      }
+    }
+    
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 999;
+      font-size: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+
+    #backToTop:hover {
+      background-color: #0d3b2a;
+    }
+    
+    nav {
+    background-color: var(--secondary-color);
+    text-align: center;
+    padding: 0.8em 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 20px; 
+  }
+
+  nav li {
+    margin: 0; 
+    text-align: center;
+  }
+
+  .footer-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .school-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 5px;
+      color: var(--light-color);
+    }
+
+    .students {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .student {
+      color: rgba(255,255,255,0.9);
+    }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+    padding: 0.5em 1em; 
+    display: inline-block;
+    text-align: center;
+  }
+
+  nav a:hover {
+    color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 4px; 
+  }
+
+  @media (max-width: 600px) {
+    nav ul {
+      flex-direction: column;
+      gap: 10px; 
+    }
+    
+    nav li {
+      width: 100%;
+    }
+    
+    nav a {
+      padding: 0.8em; 
+    }
+  }
+  </style>
+  
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="الصفحة الرئيسية.html">الصفحة الرئيسية </a>
+    </div>
+</nav>
+ 
+  <header>
+    <h1>أركان الإسلام الخمسة
+      <div class="card">
+        <ol>
+            <li style="font-size: 25px;">شهادة أن لا إله إلا الله وأن محمداً رسول الله</li>
+            <li style="font-size: 25px;">إقام الصلاة</li>
+            <li style="font-size: 25px;">إيتاء الزكاة</li>
+            <li style="font-size: 25px;">صوم رمضان</li>
+            <li style="font-size: 25px;">حج البيت لمن استطاع إليه سبيلا</li>
+        </ol>
+    </div>
+    </h1>
+  </header>
+  <div class="container">
+    <div class="pillar">
+      <h2>1. الشهادتان</h2>
+      <p>
+        الشهادتان هما المدخل الأساسي للإسلام، ولا يصبح الإنسان مسلمًا إلا بالنطق بهما عن يقين. <br>
+        - "شهادة أن لا إله إلا الله" تعني الإيمان التام بأن الله وحده هو المستحق للعبادة، ونفي الألوهية عن أي شيء أو أحد سواه. <br>
+        - "وشهادة أن محمدًا رسول الله" تعني التصديق برسالة النبي محمد ﷺ واتباع ما جاء به من قرآن وسنة. <br>
+        هذا الركن هو الأساس الذي تُبنى عليه بقية الأركان، وهو إعلان الولاء الكامل لله ورسوله.
+      </p>
+    </div>
+  
+    <div class="pillar">
+      <h2>2. الصلاة</h2>
+      <p>
+        الصلاة هي عمود الدين، وهي من أولى ما يُحاسب عليه العبد يوم القيامة. <br>
+        تُؤدى خمس مرات في اليوم: الفجر، الظهر، العصر، المغرب، والعشاء. <br>
+        وهي وسيلة مباشرة يتواصل بها العبد مع ربه، وتشتمل على قيام وركوع وسجود وقراءة للقرآن. <br>
+        تؤدي الصلاة إلى تهذيب النفس، وتُعين على البُعد عن الفحشاء والمنكر، وتغرس الطمأنينة في القلب.
+      </p>
+    </div>
+  
+    <div class="pillar">
+      <h2>3. الزكاة</h2>
+      <p>
+        الزكاة هي فريضة مالية تؤخذ من أموال الأغنياء وتُعطى للفقراء، وهي حق واجب وليس تفضّل. <br>
+        تُفرض على أموال معينة إذا بلغت النصاب ومر عليها الحول (سنة هجرية). <br>
+        مقدارها غالبًا يكون 2.5% من المال النقدي، وهناك أنواع أخرى كزكاة الزروع والأنعام. <br>
+        الزكاة تطهر النفس من البخل، وتنمي المال، وتُسهم في تحقيق العدالة الاجتماعية والتكافل بين المسلمين.
+      </p>
+    </div>
+  
+    <div class="pillar">
+      <h2>4. الصوم</h2>
+      <p>
+        صوم شهر رمضان فرض على كل مسلم بالغ عاقل قادر. <br>
+        يبدأ الصوم من طلوع الفجر إلى غروب الشمس، مع الإمساك عن الأكل والشرب وسائر المفطرات. <br>
+        لا يقتصر الصوم على الامتناع عن الطعام، بل يشمل الامتناع عن القول والفعل السيئ. <br>
+        الصيام يُعلّم الصبر والتحكم بالنفس، ويزيد من الإحساس بالفقراء، ويُعد مناسبة للتقرب من الله بالطاعات.
+      </p>
+    </div>
+  
+    <div class="pillar">
+      <h2>5. الحج</h2>
+      <p>
+        الحج هو فريضة على المسلم مرة واحدة في العمر إن كان قادرًا بدنيًا وماليًا. <br>
+        يُؤدى في شهر ذي الحجة، وفيه مناسك متعددة مثل: الإحرام، الطواف، السعي، الوقوف بعرفة، رمي الجمرات، وذبح الهدي. <br>
+        الحج يُجسد المساواة بين المسلمين، ويُطهر النفس من الذنوب، ويُعيد المسلم كما ولدته أمه (نقيًا من الخطايا). <br>
+        هو أكبر تجمع إيماني في العالم الإسلامي، وشهادة عملية للتجرد لله والانقياد لأوامره.
+      </p>
+    </div>
+  </div>
+  
+  
+  <!-- زر الرجوع للأعلى -->
+<button id="backToTop" title="الرجوع للأعلى">↑</button>
+
+<script>
+  // زر الرجوع للأعلى
+  const btn = document.getElementById("backToTop");
+
+  window.onscroll = function() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      btn.style.display = "block";
+    } else {
+      btn.style.display = "none";
+    }
+  };
+
+  btn.onclick = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+
+</script>
+
+</body>
+</html>
